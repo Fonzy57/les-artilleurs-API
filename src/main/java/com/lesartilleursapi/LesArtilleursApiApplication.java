@@ -8,6 +8,9 @@ public class LesArtilleursApiApplication {
 
   public static void main(String[] args) {
     SpringApplication.run(LesArtilleursApiApplication.class, args);
+
+    //TODO SUPPRIMER QUAND TESTS FINIS
+    System.out.println("Server started");
   }
 
 }
