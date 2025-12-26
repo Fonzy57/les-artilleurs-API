@@ -31,5 +31,6 @@ public class FaqItem {
   private Instant createdAt;
 
   @LastModifiedDate
+  @Column(nullable = false)
   private Instant updatedAt;
 }
