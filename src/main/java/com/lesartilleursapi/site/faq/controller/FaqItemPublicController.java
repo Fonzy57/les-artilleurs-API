@@ -3,10 +3,7 @@ package com.lesartilleursapi.site.faq.controller;
 import com.lesartilleursapi.site.faq.model.FaqItem;
 import com.lesartilleursapi.site.faq.service.FaqItemService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +16,7 @@ import java.util.Optional;
  * <p>
  * All endpoints under this controller are publicly accessible and do not require authentication.
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/api/public/site/faq")
 public class FaqItemPublicController {
