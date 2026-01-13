@@ -23,3 +23,40 @@ VALUES ('À partir de quel âge puis-je prendre une licence ?',
         'Le stade se situe à proximité du centre-ville et est facilement accessible en voiture ou en transports en commun. L’adresse exacte, ainsi que les informations d’accès et de stationnement, sont disponibles sur le site officiel du club.',
         UTC_TIMESTAMP(),
         UTC_TIMESTAMP());
+
+INSERT INTO info_block(slot, content, created_at, updated_at)
+VALUES -- Slot 2
+       (2,
+        'Reprise des entraînements pour la saison 2023-2024 dès **le lundi 14 août** ! Pensez à vérifier vos horaires et à préparer votre équipement.',
+        UTC_TIMESTAMP(),
+        UTC_TIMESTAMP()),
+
+-- Slot 1
+       (1,
+        'Les inscriptions sont **ouvertes** pour la nouvelle saison. _Les places sont limitées_, n’attendez pas le dernier moment pour vous inscrire.',
+        UTC_TIMESTAMP(),
+        UTC_TIMESTAMP()),
+
+-- Slot 3
+       (3,
+        '**Assemblée générale du club** prévue le _vendredi 22 septembre à 18h30_. La présence des licenciés est fortement recommandée.',
+        UTC_TIMESTAMP(),
+        UTC_TIMESTAMP()),
+
+-- Slot 4
+       (4,
+        'Rappel : le port des **équipements de sécurité** est obligatoire lors de tous les entraînements et compétitions.',
+        UTC_TIMESTAMP(),
+        UTC_TIMESTAMP()),
+
+-- En réserve (non affiché)
+       (NULL,
+        'Stage de perfectionnement organisé pendant les **vacances de la Toussaint**. Plus d’informations à venir prochainement.',
+        UTC_TIMESTAMP(),
+        UTC_TIMESTAMP()),
+
+-- En réserve (non affiché)
+       (NULL,
+        'Félicitations à nos équipes pour leurs **excellents résultats** lors du dernier tournoi régional 👏',
+        UTC_TIMESTAMP(),
+        UTC_TIMESTAMP());
