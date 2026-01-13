@@ -86,7 +86,7 @@ public class FaqItemService {
    * @return an {@link Optional} containing the updated FAQ item if the item exists,
    * or {@link Optional#empty()} if no item exists with the given identifier
    */
-  public Optional<FaqItem> modifyOne(Long id, FaqItemUpdateDto dto) {
+  public Optional<FaqItem> updateOne(Long id, FaqItemUpdateDto dto) {
     Optional<FaqItem> existingFaqItem = faqItemRepository.findById(id);
 
     if (existingFaqItem.isEmpty()) {

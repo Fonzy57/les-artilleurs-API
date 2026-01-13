@@ -97,9 +97,9 @@ public class FaqItemAdminController {
    */
   @PutMapping("/{id}")
   @JsonView(Views.Admin.class)
-  public ResponseEntity<FaqItem> modifyOneFaqItem(@PathVariable Long id,
+  public ResponseEntity<FaqItem> updateOneFaqItem(@PathVariable Long id,
       @RequestBody @Valid FaqItemUpdateDto faqItemUpdateDto) {
-    Optional<FaqItem> updatedItem = faqItemService.modifyOne(id, faqItemUpdateDto);
+    Optional<FaqItem> updatedItem = faqItemService.updateOne(id, faqItemUpdateDto);
 
     if (updatedItem.isEmpty()) {
       return ResponseEntity.notFound().build();
