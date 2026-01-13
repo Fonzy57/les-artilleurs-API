@@ -1,5 +1,7 @@
 package com.lesartilleursapi.site.faq.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.lesartilleursapi.jsonview.Views;
 import com.lesartilleursapi.site.faq.model.FaqItem;
 import com.lesartilleursapi.site.faq.service.FaqItemService;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +41,7 @@ public class FaqItemPublicController {
    * Returns an empty list if no FAQ items are found.
    */
   @GetMapping
+  @JsonView(Views.Public.class)
   public ResponseEntity<List<FaqItem>> getAllFaqItems() {
     List<FaqItem> faqItems = faqItemService.getAll();
     return ResponseEntity.ok(faqItems);
@@ -52,6 +55,7 @@ public class FaqItemPublicController {
    * or {@code 404 Not Found} if the item does not exist
    */
   @GetMapping("/{id}")
+  @JsonView(Views.Public.class)
   public ResponseEntity<FaqItem> getOneFaqItem(@PathVariable Long id) {
     Optional<FaqItem> faqItem = faqItemService.getOne(id);
     if (faqItem.isEmpty()) {

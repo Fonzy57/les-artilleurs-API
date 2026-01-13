@@ -1,5 +1,7 @@
 package com.lesartilleursapi.site.faq.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.lesartilleursapi.jsonview.Views;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,19 +20,24 @@ public class FaqItem {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @JsonView(Views.Public.class)
   private Long id;
 
   @Column(nullable = false)
+  @JsonView(Views.Public.class)
   private String question;
 
   @Column(nullable = false, columnDefinition = "TEXT")
+  @JsonView(Views.Public.class)
   private String answer;
 
   @CreatedDate
   @Column(updatable = false, nullable = false)
+  @JsonView(Views.Admin.class)
   private Instant createdAt;
 
   @LastModifiedDate
   @Column(nullable = false)
+  @JsonView(Views.Admin.class)
   private Instant updatedAt;
 }
