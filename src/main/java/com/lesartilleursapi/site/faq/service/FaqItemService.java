@@ -1,6 +1,6 @@
 package com.lesartilleursapi.site.faq.service;
 
-import com.lesartilleursapi.site.faq.dto.FaqItemAddDto;
+import com.lesartilleursapi.site.faq.dto.FaqItemCreateDto;
 import com.lesartilleursapi.site.faq.dto.FaqItemUpdateDto;
 import com.lesartilleursapi.site.faq.model.FaqItem;
 import com.lesartilleursapi.site.faq.repository.FaqItemRepository;
@@ -69,7 +69,7 @@ public class FaqItemService {
    * @param dto data transfer object containing the FAQ item information
    * @return the newly created {@link FaqItem}
    */
-  public FaqItem addOne(FaqItemAddDto dto) {
+  public FaqItem addOne(FaqItemCreateDto dto) {
     FaqItem faqItem = new FaqItem();
     faqItem.setId(null);
     faqItem.setQuestion(dto.getQuestion());
@@ -108,6 +108,7 @@ public class FaqItemService {
    * @return an {@link Optional} containing the deleted FAQ item if it existed,
    * or {@link Optional#empty()} if no item exists with the given identifier
    */
+//  TODO MODIFIER ICI ET DANS LE CONTROLLER, FAIRE COMME POUR INFOBLOCK
   public Optional<FaqItem> deleteOne(Long id) {
     Optional<FaqItem> faqItem = faqItemRepository.findById(id);
 

@@ -2,7 +2,7 @@ package com.lesartilleursapi.site.faq.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.lesartilleursapi.jsonview.Views;
-import com.lesartilleursapi.site.faq.dto.FaqItemAddDto;
+import com.lesartilleursapi.site.faq.dto.FaqItemCreateDto;
 import com.lesartilleursapi.site.faq.dto.FaqItemUpdateDto;
 import com.lesartilleursapi.site.faq.model.FaqItem;
 import com.lesartilleursapi.site.faq.service.FaqItemService;
@@ -82,7 +82,7 @@ public class FaqItemAdminController {
    */
   @PostMapping
   @JsonView(Views.Admin.class)
-  public ResponseEntity<FaqItem> addOneFaqItem(@RequestBody @Valid FaqItemAddDto faqItemAddDto) {
+  public ResponseEntity<FaqItem> addOneFaqItem(@RequestBody @Valid FaqItemCreateDto faqItemAddDto) {
     FaqItem created = faqItemService.addOne(faqItemAddDto);
     return ResponseEntity.status(201).body(created);
   }
