@@ -1,5 +1,7 @@
 package com.lesartilleursapi.site.infoBlock.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.lesartilleursapi.jsonview.Views;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,20 +20,25 @@ public class InfoBlock {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @JsonView(Views.Public.class)
   private Long id;
 
   @Column(unique = true)
+  @JsonView(Views.Admin.class)
   private Integer slot;
 
-  @Column(nullable = false, columnDefinition = "TEXT")
+  @Column(nullable = false)
+  @JsonView(Views.Public.class)
   private String content;
 
   @CreatedDate
   @Column(updatable = false, nullable = false)
+  @JsonView(Views.Admin.class)
   private Instant createdAt;
 
   @LastModifiedDate
   @Column(nullable = false)
+  @JsonView(Views.Admin.class)
   private Instant updatedAt;
 
 }
