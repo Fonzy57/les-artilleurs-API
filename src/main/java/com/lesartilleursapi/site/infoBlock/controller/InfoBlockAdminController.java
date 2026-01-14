@@ -117,13 +117,14 @@ public class InfoBlockAdminController {
    * Deletes an info block by its identifier.
    *
    * @param id the identifier of the info block to delete
-   * @return {@code 204 No Content} if the block was deleted successfully,
+   * @return {@code 204 No Content} if the info block was deleted,
    * or {@code 404 Not Found} if no info block exists with the given identifier
    */
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteOneInfoBlock(@PathVariable Long id) {
-    boolean deleted = infoBlockService.deleteOne(id);
-    if (!deleted) {
+    Optional<InfoBlock> deletedInfoBLock = infoBlockService.deleteOne(id);
+
+    if (deletedInfoBLock.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
