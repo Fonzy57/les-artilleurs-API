@@ -108,7 +108,6 @@ public class FaqItemService {
    * @return an {@link Optional} containing the deleted FAQ item if it existed,
    * or {@link Optional#empty()} if no item exists with the given identifier
    */
-//  TODO MODIFIER ICI ET DANS LE CONTROLLER, FAIRE COMME POUR INFOBLOCK
   public Optional<FaqItem> deleteOne(Long id) {
     Optional<FaqItem> faqItem = faqItemRepository.findById(id);
 
