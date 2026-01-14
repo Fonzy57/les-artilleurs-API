@@ -4,6 +4,8 @@ import com.lesartilleursapi.site.infoBlock.dto.InfoBlockCreateDto;
 import com.lesartilleursapi.site.infoBlock.dto.InfoBlockUpdateDto;
 import com.lesartilleursapi.site.infoBlock.model.InfoBlock;
 import com.lesartilleursapi.site.infoBlock.repository.InfoBlockRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,9 @@ import java.util.Optional;
 public class InfoBlockService {
 
   private final InfoBlockRepository infoBlockRepository;
+
+  @PersistenceContext
+  private EntityManager entityManager;
 
   /**
    * Constructs a new {@link InfoBlockService}.
@@ -72,6 +77,9 @@ public class InfoBlockService {
 
     // 5. Persist the change in the database
     infoBlockRepository.save(existingBlock);
+
+    // 6. Force immediate SQL execution to avoid UNIQUE constraint violation
+    entityManager.flush();
   }
 
   /**
@@ -219,22 +227,22 @@ public class InfoBlockService {
   }
 
   /**
-   * Deletes an info block by its identifier.
+   * Deletes an {@link InfoBlock} by its identifier.
    * <p>
-   * This method attempts to delete the entity directly. If no entity exists with the
-   * given identifier, the repository throws an {@code EmptyResultDataAccessException},
-   * which is caught and translated into a {@code false} return value.
+   * If an info block with the given ID exists, it is deleted and returned.
+   * Otherwise, no deletion is performed and an empty {@link Optional} is returned.
    *
    * @param id the identifier of the info block to delete
-   * @return {@code true} if the block was deleted successfully,
-   * {@code false} if no block exists with the given identifier
+   * @return an {@link Optional} containing the deleted {@link InfoBlock} if it existed,
+   * or {@link Optional#empty()} if no info block exists with the given identifier
    */
-  public boolean deleteOne(Long id) {
-    try {
-      infoBlockRepository.deleteById(id);
-      return true;
-    } catch (org.springframework.dao.EmptyResultDataAccessException e) {
-      return false;
+  public Optional<InfoBlock> deleteOne(Long id) {
+    Optional<InfoBlock> infoBlock = infoBlockRepository.findById(id);
+
+    if (infoBlock.isPresent()) {
+      infoBlockRepository.delete(infoBlock.get());
     }
+
+    return infoBlock;
   }
 }
