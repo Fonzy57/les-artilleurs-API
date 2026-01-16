@@ -1,6 +1,8 @@
 package com.lesartilleursapi.site.faq.controller;
 
-import com.lesartilleursapi.site.faq.dto.FaqItemAddDto;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.lesartilleursapi.jsonview.Views;
+import com.lesartilleursapi.site.faq.dto.FaqItemCreateDto;
 import com.lesartilleursapi.site.faq.dto.FaqItemUpdateDto;
 import com.lesartilleursapi.site.faq.model.FaqItem;
 import com.lesartilleursapi.site.faq.service.FaqItemService;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 //  TODO METTRE ANNOTATION POUR PROTEGER PAR ADMIN
@@ -39,6 +42,37 @@ public class FaqItemAdminController {
     this.faqItemService = faqItemService;
   }
 
+
+  /**
+   * Retrieves all FAQ items.
+   *
+   * @return a {@link ResponseEntity} containing the list of FAQ items.
+   * Returns an empty list if no FAQ items are found.
+   */
+  @GetMapping
+  @JsonView(Views.Admin.class)
+  public ResponseEntity<List<FaqItem>> getAllFaqItems() {
+    List<FaqItem> faqItems = faqItemService.getAll();
+    return ResponseEntity.ok(faqItems);
+  }
+
+  /**
+   * Retrieves a single FAQ item by its identifier.
+   *
+   * @param id the identifier of the FAQ item
+   * @return a {@link ResponseEntity} containing the FAQ item if found,
+   * or {@code 404 Not Found} if the item does not exist
+   */
+  @GetMapping("/{id}")
+  @JsonView(Views.Admin.class)
+  public ResponseEntity<FaqItem> getOneFaqItem(@PathVariable Long id) {
+    Optional<FaqItem> faqItem = faqItemService.getOne(id);
+    if (faqItem.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(faqItem.get());
+  }
+
   /**
    * Creates a new FAQ item.
    *
@@ -47,7 +81,8 @@ public class FaqItemAdminController {
    * with HTTP status {@code 201 Created}
    */
   @PostMapping
-  public ResponseEntity<FaqItem> addOneFaqItem(@RequestBody @Valid FaqItemAddDto faqItemAddDto) {
+  @JsonView(Views.Admin.class)
+  public ResponseEntity<FaqItem> addOneFaqItem(@RequestBody @Valid FaqItemCreateDto faqItemAddDto) {
     FaqItem created = faqItemService.addOne(faqItemAddDto);
     return ResponseEntity.status(201).body(created);
   }
@@ -61,9 +96,10 @@ public class FaqItemAdminController {
    * or {@code 404 Not Found} if the item does not exist
    */
   @PutMapping("/{id}")
-  public ResponseEntity<FaqItem> modifyOneFaqItem(@PathVariable Long id,
+  @JsonView(Views.Admin.class)
+  public ResponseEntity<FaqItem> updateOneFaqItem(@PathVariable Long id,
       @RequestBody @Valid FaqItemUpdateDto faqItemUpdateDto) {
-    Optional<FaqItem> updatedItem = faqItemService.modifyOne(id, faqItemUpdateDto);
+    Optional<FaqItem> updatedItem = faqItemService.updateOne(id, faqItemUpdateDto);
 
     if (updatedItem.isEmpty()) {
       return ResponseEntity.notFound().build();
@@ -80,6 +116,7 @@ public class FaqItemAdminController {
    * or {@code 404 Not Found} if the item does not exist
    */
   @DeleteMapping("/{id}")
+  @JsonView(Views.Admin.class)
   public ResponseEntity<Void> deleteOneFaqItem(@PathVariable Long id) {
     Optional<FaqItem> deletedItem = faqItemService.deleteOne(id);
 

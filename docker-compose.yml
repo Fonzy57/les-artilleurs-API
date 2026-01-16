@@ -24,7 +24,6 @@ services:
       PMA_PORT: 3306
     ports:
       - "8181:80"
-    restart: always
 
 volumes:
   dbdata:

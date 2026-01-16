@@ -1,4 +1,4 @@
-package com.lesartilleursapi.site.faq.model;
+package com.lesartilleursapi.site.infoBlock.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.lesartilleursapi.jsonview.Views;
@@ -15,21 +15,21 @@ import java.time.Instant;
 @Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "faq_item")
-public class FaqItem {
+@Table(name = "info_block")
+public class InfoBlock {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @JsonView(Views.Public.class)
   private Long id;
 
+  @Column(unique = true)
+  @JsonView(Views.Admin.class)
+  private Integer slot;
+
   @Column(nullable = false)
   @JsonView(Views.Public.class)
-  private String question;
-
-  @Column(nullable = false, columnDefinition = "TEXT")
-  @JsonView(Views.Public.class)
-  private String answer;
+  private String content;
 
   @CreatedDate
   @Column(updatable = false, nullable = false)
@@ -40,4 +40,5 @@ public class FaqItem {
   @Column(nullable = false)
   @JsonView(Views.Admin.class)
   private Instant updatedAt;
+
 }
