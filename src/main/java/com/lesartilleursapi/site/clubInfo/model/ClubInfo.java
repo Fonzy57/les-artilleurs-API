@@ -12,37 +12,46 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.Instant;
 
 @Getter
-@Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "club_info")
 public class ClubInfo {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @JsonView(Views.Public.class)
-  private Long id;
+  private static final long SINGLETON_ID = 1L;
 
+  protected ClubInfo() {
+  }
+
+  @Id
+  @JsonView(Views.Public.class)
+  private Long id = SINGLETON_ID;
+
+  @Setter
   @Column(nullable = false, length = 100)
   @JsonView(Views.Public.class)
   private String clubName;
 
+  @Setter
   @Column(nullable = false, length = 100)
   @JsonView(Views.Public.class)
   private String stadiumName;
 
+  @Setter
   @Column(nullable = false, length = 150)
   @JsonView(Views.Public.class)
   private String street;
 
+  @Setter
   @Column(nullable = false, length = 80)
   @JsonView(Views.Public.class)
   private String city;
 
+  @Setter
   @Column(nullable = false, length = 10)
   @JsonView(Views.Public.class)
   private String postalCode;
 
+  @Setter
   @Column(nullable = false, length = 150)
   @JsonView(Views.Public.class)
   private String contactEmail;
@@ -56,4 +65,20 @@ public class ClubInfo {
   @Column(nullable = false)
   @JsonView(Views.Admin.class)
   private Instant updatedAt;
+
+  public static long getClubInfoId() {
+    return SINGLETON_ID;
+  }
+
+  @PrePersist
+  @PreUpdate
+  private void enforceSingletonId() {
+    if (id == null) {
+      id = SINGLETON_ID;
+    }
+    if (!id.equals(SINGLETON_ID)) {
+      throw new IllegalStateException("ClubInfo must have id=1");
+    }
+  }
+
 }
