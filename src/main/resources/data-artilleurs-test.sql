@@ -60,3 +60,22 @@ VALUES -- Slot 2
         'Félicitations à nos équipes pour leurs **excellents résultats** lors du dernier tournoi régional 👏',
         UTC_TIMESTAMP(),
         UTC_TIMESTAMP());
+
+INSERT INTO club_info (id,
+                       club_name,
+                       stadium_name,
+                       street,
+                       city,
+                       postal_code,
+                       contact_email,
+                       created_at,
+                       updated_at)
+VALUES (1,
+        'Les Artilleurs',
+        'Yacine CHERRADI',
+        'Rue de la Grange-Aux-Bois',
+        'Metz',
+        '57070',
+        'contact@les-artilleurs.fr',
+        UTC_TIMESTAMP(),
+        UTC_TIMESTAMP());
