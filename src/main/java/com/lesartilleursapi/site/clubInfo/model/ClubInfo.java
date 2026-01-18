@@ -70,6 +70,10 @@ public class ClubInfo {
     return SINGLETON_ID;
   }
 
+  public static ClubInfo createSingleton() {
+    return new ClubInfo();
+  }
+
   @PrePersist
   @PreUpdate
   private void enforceSingletonId() {
