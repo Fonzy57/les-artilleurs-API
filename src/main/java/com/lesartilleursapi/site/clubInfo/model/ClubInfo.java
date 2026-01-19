@@ -15,7 +15,6 @@ import java.time.Instant;
  * Singleton entity storing global club information.
  * Only one record is allowed in the database (id = 1).
  */
-
 @Getter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
