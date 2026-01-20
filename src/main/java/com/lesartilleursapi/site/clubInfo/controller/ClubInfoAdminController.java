@@ -1,6 +1,6 @@
 package com.lesartilleursapi.site.clubInfo.controller;
 
-//  TODO METTRE ANNOTATION POUR PROTEGER PAR ADMIN
+//  TODO METTRE ANNOTATION POUR PROTÉGER PAR ADMIN
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.lesartilleursapi.jsonview.Views;
