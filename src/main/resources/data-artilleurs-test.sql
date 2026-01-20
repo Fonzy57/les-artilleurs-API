@@ -79,3 +79,9 @@ VALUES (1,
         'contact@les-artilleurs.fr',
         UTC_TIMESTAMP(),
         UTC_TIMESTAMP());
+
+INSERT INTO roles(code, label, created_at, updated_at)
+VALUES ('SUPER_ADMIN', 'Super administrateur', UTC_TIMESTAMP(), UTC_TIMESTAMP()),
+       ('ADMIN', 'Administrateur', UTC_TIMESTAMP(), UTC_TIMESTAMP()),
+       ('COACH', 'Coach', UTC_TIMESTAMP(), UTC_TIMESTAMP()),
+       ('WRITER', 'Rédacteur', UTC_TIMESTAMP(), UTC_TIMESTAMP());
