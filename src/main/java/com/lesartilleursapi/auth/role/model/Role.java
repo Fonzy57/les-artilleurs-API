@@ -33,4 +33,12 @@ public class Role {
   @LastModifiedDate
   @Column(nullable = false)
   private Instant updatedAt;
+
+  // TODO  Relation inverse (optionnelle).
+  // TODO À activer uniquement si un besoin métier apparaît
+  // (ex: récupérer la liste des utilisateurs pour un rôle donné).
+  // Pour l’instant, la relation est gérée uniquement côté User.
+  //
+  //  @OneToMany(mappedBy = "role")
+  //  private List<User> users = new ArrayList<>();
 }
