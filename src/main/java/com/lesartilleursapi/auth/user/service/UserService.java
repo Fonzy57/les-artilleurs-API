@@ -149,17 +149,16 @@ public class UserService {
   }
 
   @Transactional
-  public Optional<UserAdminDto> updateUserPassword(Long id, UserPasswordUpdateDto dto) {
+  public void updateUserPassword(Long id, UserPasswordUpdateDto dto) {
     Optional<User> existingUser = userRepository.findById(id);
     if (existingUser.isEmpty()) {
-      return Optional.empty();
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Utilisateur introuvable");
     }
 
     User user = existingUser.get();
     user.setPasswordHash(passwordEncoder.encode(dto.getNewPassword()));
 
-    User saved = userRepository.save(user);
-    return Optional.of(toUserAdminDto(saved));
+    userRepository.save(user);
   }
 
   @Transactional
