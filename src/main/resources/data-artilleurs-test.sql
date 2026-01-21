@@ -79,3 +79,58 @@ VALUES (1,
         'contact@les-artilleurs.fr',
         UTC_TIMESTAMP(),
         UTC_TIMESTAMP());
+
+INSERT INTO roles(code, label, created_at, updated_at)
+VALUES ('SUPER_ADMIN', 'Super administrateur', UTC_TIMESTAMP(), UTC_TIMESTAMP()),
+       ('ADMIN', 'Administrateur', UTC_TIMESTAMP(), UTC_TIMESTAMP()),
+       ('COACH', 'Coach', UTC_TIMESTAMP(), UTC_TIMESTAMP()),
+       ('WRITER', 'Rédacteur', UTC_TIMESTAMP(), UTC_TIMESTAMP());
+
+INSERT INTO users (firstname,
+                   lastname,
+                   email,
+                   password_hash,
+                   last_login_at,
+                   created_at,
+                   updated_at,
+                   role_id)
+VALUES
+-- SUPER ADMIN
+('Stéphane',
+ 'Scheeres',
+ 'super-admin@les-artilleurs.fr',
+ '$2a$10$63jr8hwzMmWyGcU7UKgokec0HBdqrlbp2yKFdXj6daQzjCXx0ganW',
+ NULL,
+ UTC_TIMESTAMP(),
+ UTC_TIMESTAMP(),
+ 1),
+
+-- ADMIN
+('Eric',
+ 'Geoffroy',
+ 'admin@les-artilleurs.fr',
+ '$2a$10$63jr8hwzMmWyGcU7UKgokec0HBdqrlbp2yKFdXj6daQzjCXx0ganW',
+ NULL,
+ UTC_TIMESTAMP(),
+ UTC_TIMESTAMP(),
+ 2),
+
+-- COACH
+('Hadrien',
+ 'Meyer',
+ 'coach@les-artilleurs.fr',
+ '$2a$10$63jr8hwzMmWyGcU7UKgokec0HBdqrlbp2yKFdXj6daQzjCXx0ganW',
+ NULL,
+ UTC_TIMESTAMP(),
+ UTC_TIMESTAMP(),
+ 3),
+
+-- WRITER
+('Hubert',
+ 'Bonisseur de la Bath',
+ 'editeur@les-artilleurs.fr',
+ '$2a$10$63jr8hwzMmWyGcU7UKgokec0HBdqrlbp2yKFdXj6daQzjCXx0ganW',
+ NULL,
+ UTC_TIMESTAMP(),
+ UTC_TIMESTAMP(),
+ 4);

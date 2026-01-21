@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//  TODO METTRE ANNOTATION POUR PROTEGER PAR ADMIN
+//  TODO METTRE ANNOTATION POUR PROTÉGER PAR ADMIN
 
 /**
  * Administrative REST controller for FAQ items.
