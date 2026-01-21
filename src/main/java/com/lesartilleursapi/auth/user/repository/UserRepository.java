@@ -20,4 +20,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
   Optional<User> findOneById(Long id);
 
   boolean existsByEmail(String email);
+
+  /**
+   * Checks whether an email address is already used by another user.
+   * <p>
+   * This method is typically used during an update operation to ensure
+   * that the email remains unique, excluding the current user identified by the given id.
+   *
+   * @param email the email address to check
+   * @param id    the id of the user to exclude from the check
+   * @return true if another user with the same email exists, false otherwise
+   */
+  boolean existsByEmailAndIdNot(String email, Long id);
+
 }
