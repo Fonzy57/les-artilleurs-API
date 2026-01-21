@@ -30,6 +30,25 @@ public class UserService {
     this.passwordEncoder = passwordEncoder;
   }
 
+  // --------------
+  // --- COMMON ---
+  // --------------
+  private Role getAssignableRoleOrThrow(Long roleId) {
+    Optional<Role> userRole = roleRepository.findById(roleId);
+
+    if (userRole.isEmpty()) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Rôle invalide");
+    }
+
+    Role role = userRole.get();
+
+    if ("ADMIN".equals(role.getCode()) || "SUPER_ADMIN".equals(role.getCode())) {
+      throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vous n'êtes pas autorisé à attribuer ce rôle.");
+    }
+
+    return role;
+  }
+
   // ---------------
   // --- MAPPERS ---
   // ---------------
@@ -83,17 +102,7 @@ public class UserService {
 
   @Transactional
   public UserAdminDto addUser(UserCreateDto dto) {
-    Optional<Role> userRole = roleRepository.findById(dto.getRoleId());
-
-    if (userRole.isEmpty()) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Rôle invalide");
-    }
-
-    Role role = userRole.get();
-
-    if ("ADMIN".equals(role.getCode()) || "SUPER_ADMIN".equals(role.getCode())) {
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vous n'êtes pas autorisé à attribuer ce rôle.");
-    }
+    Role role = getAssignableRoleOrThrow(dto.getRoleId());
 
     if (userRepository.existsByEmail(dto.getEmail())) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "Cet email est déjà utilisé.");
@@ -121,17 +130,7 @@ public class UserService {
       return Optional.empty();
     }
 
-    Optional<Role> userRole = roleRepository.findById(dto.getRoleId());
-
-    if (userRole.isEmpty()) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Rôle invalide");
-    }
-
-    Role role = userRole.get();
-
-    if ("ADMIN".equals(role.getCode()) || "SUPER_ADMIN".equals(role.getCode())) {
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vous n'êtes pas autorisé à attribuer ce rôle.");
-    }
+    Role role = getAssignableRoleOrThrow(dto.getRoleId());
 
     if (userRepository.existsByEmailAndIdNot(dto.getEmail(), id)) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "Cet email est déjà utilisé.");
@@ -191,5 +190,5 @@ public class UserService {
     return userRepository.findOneById(id).map(this::toUserSuperAdminDto);
   }
 
-  // TODO FAIRE PLUS TARD LES MÉTHODES PUT, POST, DELETE
+  // TODO FAIRE PLUS TARD LES MÉTHODES PUT, POST, DELETE, UPDATE PASSWORD
 }
