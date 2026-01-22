@@ -29,7 +29,7 @@ import java.util.Optional;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/api/admin/club-info")
+@RequestMapping("/admin/club-info")
 public class ClubInfoAdminController {
 
   private final ClubInfoService clubInfoService;

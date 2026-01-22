@@ -32,7 +32,7 @@ import java.util.Optional;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/api/admin/users")
+@RequestMapping("/admin/users")
 public class UserAdminController {
 
   private final UserService userService;

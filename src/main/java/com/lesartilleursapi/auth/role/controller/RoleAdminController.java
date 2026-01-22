@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/admin/roles")
+@RequestMapping("/admin/roles")
 public class RoleAdminController {
   private final RoleService roleService;
 

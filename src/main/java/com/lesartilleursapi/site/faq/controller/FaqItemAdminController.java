@@ -27,7 +27,7 @@ import java.util.Optional;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/api/admin/faq")
+@RequestMapping("/admin/faq")
 public class FaqItemAdminController {
 
   private final FaqItemService faqItemService;

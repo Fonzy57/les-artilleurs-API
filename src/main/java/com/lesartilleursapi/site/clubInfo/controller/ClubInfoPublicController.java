@@ -27,7 +27,7 @@ import java.util.Optional;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/api/public/site/club-info")
+@RequestMapping("/public/site/club-info")
 public class ClubInfoPublicController {
 
   private final ClubInfoService clubInfoService;

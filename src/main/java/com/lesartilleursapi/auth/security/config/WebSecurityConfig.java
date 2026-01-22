@@ -41,6 +41,7 @@ public class WebSecurityConfig {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/auth/**").permitAll()
             .requestMatchers("/public/**").permitAll()
+            .requestMatchers("/admin/**").permitAll()
             // exemple: /api/v1/admin/** réservé ADMIN/SUPER_ADMIN
             // .requestMatchers("/api/v1/admin/**").hasAnyRole("ADMIN","SUPER_ADMIN")
             .anyRequest().authenticated()

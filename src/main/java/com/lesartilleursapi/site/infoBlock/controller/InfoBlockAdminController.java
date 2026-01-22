@@ -27,7 +27,7 @@ import java.util.Optional;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/api/admin/info-block")
+@RequestMapping("/admin/info-block")
 public class InfoBlockAdminController {
 
   private final InfoBlockService infoBlockService;

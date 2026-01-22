@@ -14,7 +14,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/public/site/info-block")
+@RequestMapping("/public/site/info-block")
 public class InfoBlockPublicController {
 
   private final InfoBlockService infoBlockService;
