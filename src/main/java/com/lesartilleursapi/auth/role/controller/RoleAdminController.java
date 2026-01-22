@@ -2,6 +2,7 @@ package com.lesartilleursapi.auth.role.controller;
 
 import com.lesartilleursapi.auth.role.dto.RoleBaseDto;
 import com.lesartilleursapi.auth.role.service.RoleService;
+import com.lesartilleursapi.auth.security.annotations.IsAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//  TODO METTRE ANNOTATION POUR PROTÉGER PAR ADMIN
 
 @CrossOrigin
 @RestController
 @RequestMapping("/admin/roles")
+@IsAdmin
 public class RoleAdminController {
   private final RoleService roleService;
 

@@ -1,6 +1,7 @@
 package com.lesartilleursapi.site.faq.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.lesartilleursapi.auth.security.annotations.IsAdmin;
 import com.lesartilleursapi.jsonview.Views;
 import com.lesartilleursapi.site.faq.dto.FaqItemCreateDto;
 import com.lesartilleursapi.site.faq.dto.FaqItemUpdateDto;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//  TODO METTRE ANNOTATION POUR PROTÉGER PAR ADMIN
 
 /**
  * Administrative REST controller for FAQ items.
@@ -28,6 +28,7 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequestMapping("/admin/faq")
+@IsAdmin
 public class FaqItemAdminController {
 
   private final FaqItemService faqItemService;

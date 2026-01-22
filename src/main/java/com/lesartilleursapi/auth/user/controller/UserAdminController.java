@@ -1,5 +1,7 @@
 package com.lesartilleursapi.auth.user.controller;
 
+import com.lesartilleursapi.auth.security.annotations.IsAdmin;
+import com.lesartilleursapi.auth.security.annotations.IsSuperAdmin;
 import com.lesartilleursapi.auth.user.dto.UserAdminDto;
 import com.lesartilleursapi.auth.user.dto.UserCreateDto;
 import com.lesartilleursapi.auth.user.dto.UserPasswordUpdateDto;
@@ -33,6 +35,7 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequestMapping("/admin/users")
+@IsAdmin
 public class UserAdminController {
 
   private final UserService userService;
@@ -115,6 +118,7 @@ public class UserAdminController {
    * @param id the identifier of the user to delete
    * @return {@code 204 No Content} if the deletion was successful
    */
+  @IsSuperAdmin
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
     userService.deleteOneUser(id);

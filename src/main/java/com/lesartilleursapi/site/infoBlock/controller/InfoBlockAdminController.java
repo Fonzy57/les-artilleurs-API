@@ -1,6 +1,7 @@
 package com.lesartilleursapi.site.infoBlock.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.lesartilleursapi.auth.security.annotations.IsAdmin;
 import com.lesartilleursapi.jsonview.Views;
 import com.lesartilleursapi.site.infoBlock.dto.InfoBlockCreateDto;
 import com.lesartilleursapi.site.infoBlock.dto.InfoBlockUpdateDto;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//  TODO METTRE ANNOTATION POUR PROTÉGER PAR ADMIN
 
 /**
  * Administrative REST controller for managing {@link InfoBlock} entities.
@@ -28,6 +28,7 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequestMapping("/admin/info-block")
+@IsAdmin
 public class InfoBlockAdminController {
 
   private final InfoBlockService infoBlockService;

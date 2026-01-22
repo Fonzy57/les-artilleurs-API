@@ -1,8 +1,8 @@
 package com.lesartilleursapi.site.clubInfo.controller;
 
-//  TODO METTRE ANNOTATION POUR PROTÉGER PAR ADMIN
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.lesartilleursapi.auth.security.annotations.IsAdmin;
 import com.lesartilleursapi.jsonview.Views;
 import com.lesartilleursapi.site.clubInfo.dto.ClubInfoUpsertDto;
 import com.lesartilleursapi.site.clubInfo.model.ClubInfo;
@@ -30,6 +30,7 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequestMapping("/admin/club-info")
+@IsAdmin
 public class ClubInfoAdminController {
 
   private final ClubInfoService clubInfoService;

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableMethodSecurity
 public class WebSecurityConfig {
 
   @Bean
@@ -41,9 +43,9 @@ public class WebSecurityConfig {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/auth/**").permitAll()
             .requestMatchers("/public/**").permitAll()
-            .requestMatchers("/admin/**").permitAll()
-            // exemple: /api/v1/admin/** réservé ADMIN/SUPER_ADMIN
-            // .requestMatchers("/api/v1/admin/**").hasAnyRole("ADMIN","SUPER_ADMIN")
+            .requestMatchers("/super-admin/**").hasRole("SUPER_ADMIN")
+            .requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+            // TODO PLUS TARD FAIRE LES ROUTES POUR COACH ET WRITER
             .anyRequest().authenticated()
         )
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
