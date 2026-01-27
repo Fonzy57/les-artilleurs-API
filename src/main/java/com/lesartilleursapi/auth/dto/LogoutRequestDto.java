@@ -1,12 +1,12 @@
 package com.lesartilleursapi.auth.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AuthResponseDto {
-  private String accessToken;
+public class LogoutRequestDto {
+  @NotBlank
   private String refreshToken;
-  private String tokenType;
 }
