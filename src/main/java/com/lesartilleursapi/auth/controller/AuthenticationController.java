@@ -81,8 +81,7 @@ public class AuthenticationController {
         request
     );
 
-    User user = userRepository.findOneById(rotated.entity().getUser().getId()).orElseThrow(() -> new IllegalStateException(
-        "User not found in DB"));
+    User user = rotated.entity().getUser();
     UserPrincipal principal = UserPrincipal.from(user);
 
     String newAccessToken = jwtService.generateAccessToken(principal);
