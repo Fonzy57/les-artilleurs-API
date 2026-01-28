@@ -54,6 +54,7 @@ public class RefreshTokenService {
     return new CreatedRefreshToken(plain, saved);
   }
 
+  // TODO SUPPRIMER SI PLUS UTILISE
   @Transactional
   public RefreshToken validateAndTouch(String plainToken) {
     String hash = sha256Hex(plainToken);
@@ -97,16 +98,31 @@ public class RefreshTokenService {
 
   @Transactional
   public CreatedRefreshToken rotate(String plainToken, boolean rememberMe, HttpServletRequest request) {
-    RefreshToken currentRefreshToken = validateAndTouch(plainToken);
+    String hash = sha256Hex(plainToken);
 
-    // revoke old
-    currentRefreshToken.setRevokedAt(Instant.now());
-    refreshTokenRepository.save(currentRefreshToken);
+    Optional<RefreshToken> refreshTokenOptional = refreshTokenRepository.findByTokenHash(hash);
 
-    User user = currentRefreshToken.getUser();
-    user.getId(); // init
+    if (refreshTokenOptional.isEmpty()) {
+      throw new IllegalArgumentException("Invalid refresh token");
+    }
 
-    // create new with same user, TTL based on remaining policy:
+    RefreshToken current = refreshTokenOptional.get();
+
+    Instant now = Instant.now();
+
+    if (current.isRevoked()) throw new IllegalArgumentException("Refresh token revoked");
+    if (current.isExpired(now)) throw new IllegalArgumentException("Refresh token expired");
+
+    // 1. touch + revoke sur le même objet (1 seul save)
+    current.setLastUsedAt(now);
+    current.setRevokedAt(now);
+    refreshTokenRepository.save(current);
+
+    // 2. Init User (lazy) pendant transaction
+    User user = current.getUser();
+    user.getId();
+
+    // 3. create new token
     return create(user, rememberMe, request);
   }
 
