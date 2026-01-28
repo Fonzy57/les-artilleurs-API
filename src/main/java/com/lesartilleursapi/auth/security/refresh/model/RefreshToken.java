@@ -17,7 +17,8 @@ import java.time.Instant;
 @Table(name = "refresh_token",
     indexes = {
         @Index(name = "idx_refresh_token_user_id", columnList = "user_id"),
-        @Index(name = "idx_refresh_token_hash", columnList = "token_hash", unique = true)
+        @Index(name = "idx_refresh_token_hash", columnList = "token_hash", unique = true),
+        @Index(name = "idx_refresh_token_expires_at", columnList = "expires_at")
     })
 public class RefreshToken {
 
