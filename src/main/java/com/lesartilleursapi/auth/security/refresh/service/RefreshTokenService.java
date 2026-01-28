@@ -54,28 +54,6 @@ public class RefreshTokenService {
     return new CreatedRefreshToken(plain, saved);
   }
 
-  // TODO SUPPRIMER SI PLUS UTILISE
-  @Transactional
-  public RefreshToken validateAndTouch(String plainToken) {
-    String hash = sha256Hex(plainToken);
-
-    Optional<RefreshToken> refreshTokenOptional = refreshTokenRepository.findByTokenHash(hash);
-
-    if (refreshTokenOptional.isEmpty()) {
-      throw new IllegalArgumentException("Invalid refresh token");
-    }
-
-    RefreshToken refreshToken = refreshTokenOptional.get();
-
-    Instant now = Instant.now();
-    if (refreshToken.isRevoked()) throw new IllegalArgumentException("Refresh token revoked");
-    if (refreshToken.isExpired(now)) throw new IllegalArgumentException("Refresh token expired");
-
-    refreshToken.setLastUsedAt(now);
-    refreshTokenRepository.save(refreshToken);
-    return refreshToken;
-  }
-
   @Transactional
   public void revoke(String plainToken) {
     String hash = sha256Hex(plainToken);
@@ -96,6 +74,7 @@ public class RefreshTokenService {
     refreshTokenRepository.save(refreshToken);
   }
 
+  // TODO ADD Revoke-all-on-reuse FOR SECURITY
   @Transactional
   public CreatedRefreshToken rotate(String plainToken, boolean rememberMe, HttpServletRequest request) {
     String hash = sha256Hex(plainToken);
@@ -120,10 +99,15 @@ public class RefreshTokenService {
 
     // 2. Init User (lazy) pendant transaction
     User user = current.getUser();
-    user.getId();
 
     // 3. create new token
     return create(user, rememberMe, request);
+  }
+
+  @Transactional
+  public long cleanupExpiredRefreshTokensOlderThan(Duration period) {
+    Instant cutoff = Instant.now().minus(period);
+    return refreshTokenRepository.deleteByExpiresAtBefore(cutoff);
   }
 
 
