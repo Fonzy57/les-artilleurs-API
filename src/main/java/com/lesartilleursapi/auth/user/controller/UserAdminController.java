@@ -50,6 +50,9 @@ public class UserAdminController {
     this.userService = userService;
   }
 
+  // TODO FAIRE DES ROUTES /me/infos POUR LE COMPTE, VOIR SI JE FAIS UN AUTRE CONTROLLER OU SI JE GARDE CELUI LA
+  // PAR EXEMPLE POUR LE CHANGEMENT DE MOT DE PASSE OU D'EMAIL
+
   /**
    * Retrieves all users for the admin view.
    *
